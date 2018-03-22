@@ -165,7 +165,8 @@ def purchasemenu2():
   'Buy 250 Ice' $2.23
   'Buy 500 Ice' $3.84
   """)))
-  if money > 0:
+  #too many if statements. This just needs to be fixed somehow.
+    if money > 0:
     if purchaseinput == "Buy 25 Cups":
       purchasecups25()
     elif purchaseinput == "Buy 50 Cups":
