@@ -1,6 +1,139 @@
-from LemonadeStandFunctions import
-import sys
+#defining main game mechanics and functions
+gameLength = 0
+cups = 0
+lemons = 0
+sugar = 0
+ice = 0
+day = 0
+money = 20.00
+highTemp = 78
+weather = "Mild"
+soldCups = 0
+customers = 0
+judgement = "NaN"
+customerSatisfaction = 0
+populatiy = 0
 
+#defining the prices of the items
+Cups_25 = .81
+Cups_50 = 1.75
+Cups_100 = 1.85
+Lemons_10 = 0.81
+Lemons_30 = 2.26
+Lemons_75 = 4.06
+Sugar_8 = 0.58
+Sugar_20 = 1.63
+Sugar_48 = 3.50
+Ice_100 = 0.86
+Ice_250 = 2.23
+Ice_500 = 3.84
+
+def instructions():
+    print("Welcome to the Lemonade Stand Game!")
+    print("""You have 7, 14, or 21 days to make as much money as possible, and you’ve decided to open a lemonade stand! You’ll have complete control over your business, including pricing, quality control, inventory control, and purchasing supplies. Buy your ingredients, set your recipe, and start selling!
+    
+    The first thing you’ll have to worry about is your recipe. At first, go with the default recipe, but try to experiment a little bit and see IF you can find a better one. Make sure you buy enough of all your ingredients, or you won’t be able to sell!"
+    
+    You’ll also have to deal with the weather, which will play a big part when customers are deciding whether or not to buy your lemonade. Read the weather report every day! When the temperature drops, or the weather turns bad (overcast, cloudy, rain), don’t expect them to buy nearly as much as they would on a hot, hazy day, so buy accordingly. Feel free to set your prices higher on those hot, muggy days too, as you’ll make more profit, even IF you sell a bit less lemonade.
+    
+    The other major factor which comes into play is your customer’s satisfaction. As you sell your lemonade, people will decide how much they like or dislike it.  This will make your business more or less popular. If your popularity is low, fewer people will want to buy your lemonade, even IF the weather is hot and sunny. But IF you’re popularity is high, you’ll do okay, even on a rainy day!")
+    
+    At the end of 7, 14, or 21 days you’ll see how much money you made. Play again, and try to beat your high score!""")
+
+def purchasecups25():
+    moneychange = money - Cups_25
+    money = moneychange
+    print("You have purchased 25 cups. Your funds are now:", money,)
+def purchasecups50():
+    moneychange = money - Cups_50
+    money = moneychange
+    print("You have purchased 50 cups. Your funds are now:", money,)
+def purchasecups100():
+  moneychange = money - Cups_100
+  money = moneychange
+  print("You have purchased 100 cups. Your funds are now:", money,)
+def purchaselemon10():
+    moneychange = money - Lemons_10
+    money = moneychange
+    print("You have purchased 10 Lemons. Your funds are now:", money,)
+def purchaselemon30():
+    moneychange = money - Lemons_30
+    money = moneychange
+    print("You have purchased 30 Lemons. Your funds are now:", money,)
+def purchaselemon75():
+  moneychange = money - Lemons_75
+  money = moneychange
+  print("You have purchased 75 Lemons. Your funds are now:", money,)
+def purchasesugar8():
+    moneychange = money - Sugar_8
+    money = moneychange
+    print("You have purchased 8 units of Sugar. Your funds are now:", money,)
+def purchasesugar20():
+    moneychange = money - Sugar_20
+    money = moneychange
+    print("You have purchased 20 units of Sugar. Your funds are now:", money,)
+def purchasesugar48():
+  moneychange = money - Sugar_48
+  money = moneychange
+  print("You have purchased 48 units of Sugar. Your funds are now:", money,)
+def purchaseice100():
+    moneychange = money - Ice_100
+    money = moneychange
+    print("You have purchased 100 units of Ice. Your funds are now:", money,)
+def purchaseice250():
+    moneychange = money - Ice_250
+    money = moneychange
+    print("You have purchased 250 units of Ice. Your funds are now:", money,)
+def purchaseice500():
+  moneychange = money - Ice_500
+  money = moneychange
+  print("You have purchased 500 units of Ice. Your funds are now:", money,)
+
+def purchasemenu():
+  purchaseinput = (input (print ("""This is the purchasing page, below will be prices for each item. Input the following commands 
+  Cups:
+  'Buy 25 Cups'
+  'Buy 50 Cups'
+  'Buy 100 Cups'
+  Lemons:
+  'Buy 10 Lemons'
+  'Buy 30 Lemons'
+  'Buy 75 Lemons'
+  Sugar:
+  'Buy 8 Sugar'
+  'Buy 20 Sugar'
+  'Buy 48 Sugar'
+  Ice:
+  'Buy 100 Ice'
+  'Buy 250 Ice'
+  'Buy 500 Ice'
+  """)))
+  if money > 0:
+    if purchaseinput == "Buy 25 Cups":
+      purchasecups25()
+    elif purchaseinput == "Buy 50 Cups":
+        purchasecups50()
+    elif purchaseinput == "Buy 100 Cups":
+        purchasecups100()
+    elif purchaseinput == "Buy 10 Lemons":
+        purchaselemon10()
+    elif purchaseinput == "Buy 30 Lemons":
+        purchaselemon30()
+    elif purchaseinput == "Buy 75 Lemons":
+        purchaselemon75()
+    elif purchaseinput == "Buy 8 Sugar":
+        purchasesugar8()
+    elif purchaseinput == "Buy 20 Sugar":
+        purchasesugar20()
+    elif purchaseinput == "Buy 48 Sugar":
+        purchasesugar48()
+    elif purchaseinput == "Buy 100 Ice":
+        purchaseice100()
+    elif purchaseinput == "Buy 250 Ice":
+        purchaseice250()
+    elif purchaseinput == "Buy 500 Ice":
+        purchaseice500()
 instructions()
-start = (input(print("if you have read these instructions please type 'start'")))
-  
+start = (input(print("If you have read these instructions, please type 'START'")))
+if start == "START":
+  purchasemenu()
