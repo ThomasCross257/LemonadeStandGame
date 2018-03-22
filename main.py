@@ -41,50 +41,63 @@ def instructions():
     At the end of 7, 14, or 21 days you’ll see how much money you made. Play again, and try to beat your high score!""")
 
 def purchasecups25():
+    global money
     moneychange = money - Cups_25
     money = moneychange
     print("You have purchased 25 cups. Your funds are now:", money,)
+    
 def purchasecups50():
+    global money
     moneychange = money - Cups_50
     money = moneychange
     print("You have purchased 50 cups. Your funds are now:", money,)
 def purchasecups100():
+  global money
   moneychange = money - Cups_100
   money = moneychange
   print("You have purchased 100 cups. Your funds are now:", money,)
 def purchaselemon10():
+    global money
     moneychange = money - Lemons_10
     money = moneychange
     print("You have purchased 10 Lemons. Your funds are now:", money,)
 def purchaselemon30():
+    global money
     moneychange = money - Lemons_30
     money = moneychange
     print("You have purchased 30 Lemons. Your funds are now:", money,)
 def purchaselemon75():
+  global money
   moneychange = money - Lemons_75
   money = moneychange
   print("You have purchased 75 Lemons. Your funds are now:", money,)
 def purchasesugar8():
+    global money
     moneychange = money - Sugar_8
     money = moneychange
     print("You have purchased 8 units of Sugar. Your funds are now:", money,)
 def purchasesugar20():
+    global money
     moneychange = money - Sugar_20
     money = moneychange
     print("You have purchased 20 units of Sugar. Your funds are now:", money,)
 def purchasesugar48():
+  global money
   moneychange = money - Sugar_48
   money = moneychange
   print("You have purchased 48 units of Sugar. Your funds are now:", money,)
 def purchaseice100():
+    global money
     moneychange = money - Ice_100
     money = moneychange
     print("You have purchased 100 units of Ice. Your funds are now:", money,)
 def purchaseice250():
+    global money
     moneychange = money - Ice_250
     money = moneychange
     print("You have purchased 250 units of Ice. Your funds are now:", money,)
 def purchaseice500():
+  global money
   moneychange = money - Ice_500
   money = moneychange
   print("You have purchased 500 units of Ice. Your funds are now:", money,)
@@ -107,6 +120,50 @@ def purchasemenu():
   'Buy 100 Ice'
   'Buy 250 Ice'
   'Buy 500 Ice'
+  """)))
+  if money > 0:
+    if purchaseinput == "Buy 25 Cups":
+      purchasecups25()
+    elif purchaseinput == "Buy 50 Cups":
+        purchasecups50()
+    elif purchaseinput == "Buy 100 Cups":
+        purchasecups100()
+    elif purchaseinput == "Buy 10 Lemons":
+        purchaselemon10()
+    elif purchaseinput == "Buy 30 Lemons":
+        purchaselemon30()
+    elif purchaseinput == "Buy 75 Lemons":
+        purchaselemon75()
+    elif purchaseinput == "Buy 8 Sugar":
+        purchasesugar8()
+    elif purchaseinput == "Buy 20 Sugar":
+        purchasesugar20()
+    elif purchaseinput == "Buy 48 Sugar":
+        purchasesugar48()
+    elif purchaseinput == "Buy 100 Ice":
+        purchaseice100()
+    elif purchaseinput == "Buy 250 Ice":
+        purchaseice250()
+    elif purchaseinput == "Buy 500 Ice":
+        purchaseice500()
+def purchasemenu2():
+  purchaseinput = (input (print ("""Continue Purchasing until you would like to start the game.
+  Cups:
+  'Buy 25 Cups' $0.81
+  'Buy 50 Cups' $1.75
+  'Buy 100 Cups' $1.85
+  Lemons:
+  'Buy 10 Lemons' $0.81
+  'Buy 30 Lemons' $2.26
+  'Buy 75 Lemons' $4.06
+  Sugar:
+  'Buy 8 Sugar' $0.58
+  'Buy 20 Sugar' $1.63
+  'Buy 48 Sugar' $3.50
+  Ice:
+  'Buy 100 Ice' $0.86
+  'Buy 250 Ice' $2.23
+  'Buy 500 Ice' $3.84
   """)))
   if money > 0:
     if purchaseinput == "Buy 25 Cups":
