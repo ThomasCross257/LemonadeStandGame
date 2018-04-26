@@ -107,9 +107,13 @@ def customerpricelikelyhood():
     customerlikelyhood = random.randint(2,5)
   elif pricepercup >= 0.80:
     customerlikelyhood = random.randint(0,3)
-recipie_probability = sugar_probability + ice_probability + lemon_probability
-totalcustomerlikelyhood = customerlikelyhood + recipie_probability + weatherlikelyhoodv
-customers = 5 * totalcustomerlikelyhood / 2 / 3 / 4 + 4
+def calculatingcustomers():
+  global customers
+  recipie_probability = sugar_probability + ice_probability + lemon_probability
+  totalcustomerlikelyhood = customerlikelyhood + recipie_probability + weatherlikelyhoodv
+  customers = 5 * totalcustomerlikelyhood / 2
+  if customers > 100:
+    customers = 100
 #Customer Calculations
 
 
@@ -184,10 +188,14 @@ def recipiesetup():
 	global sugarperpitcher
 	global pricepercup
 	global icepercup
+	global Lemons
+	global sugar
+	global ice
 	print("Your recipie is currently:")
-	print(lemonsperpitcher)
-	print(sugarperpitcher)
-	print(icepercup)
+	print("Lemons: ",lemonsperpitcher)
+	print("Sugar: ",sugarperpitcher)
+	print("Ice: " ,icepercup)
+	print("Cup price" ,pricepercup)
 	f = input("""What would you like to edit?
   Lemons
   Sugar
@@ -197,17 +205,32 @@ def recipiesetup():
 	if f == "Lemons" or f == "LEMONS" or f == "lemons":
 		lemonsperpitcher = int(
 		    input("Please input how many lemons you'd like in your mix"))
-		recipiesetup()
+		if lemonsperpitcher > Lemons:
+		  lemonsperpitcher = 0
+		  print("You cannot input more lemons that you have.")
+		else:
+		  recipiesetup()
 	elif f == "Sugar" or f == "SUGAR" or f == "sugar":
 		sugarperpitcher = int(
 		    input("Please input how much sugar you'd like in your mix"))
-		recipiesetup()
+		if sugarperpitcher > sugar:
+		  sugarperpitcher = 0
+		  print("You cannot input more units of sugar than you have.")
+		  recipiesetup()
+		else:
+		    recipiesetup()
 	elif f == "Ice" or f == "ICE" or f == "ice":
 		icepercup = int(
-		    input("Please input how much Ice you want in each cup?"))
-		recipiesetup()
+		    input("Please input how much Ice you want in each cup."))
+		if icepercup > ice:
+		  icepercup = 0
+		  print("You cannot put more ice in than you have.")
+		  recipiesetup()
 	elif f == "Cup price" or f == "Cup Price" or f == "CUP PRICE" or f == "cup price":
-		pricepercup = int(input())
+		pricepercup = float(input("Please input the price you would like for your cups."))
+		if pricepercup > 2.00 or pricepercup < 0.05:
+		  pricepercup = 0
+		  print("You cannot set the price beyond $2.00 or below $0.05")
 
 
 def instructions():
