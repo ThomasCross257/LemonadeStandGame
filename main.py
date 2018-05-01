@@ -6,7 +6,7 @@ import random
 #defining main game mechanics and functions
 gameLength = 0
 cups = 0
-Lemons = 0
+lemons = 0
 totalincome = 0
 totalexpanses = 0
 liquidatedinventory = 0
@@ -17,8 +17,9 @@ days = 0
 money = 20.00
 highTemp = 78
 weather = "Mild"
+hour = 7
 weatherlist = ["Mild" "Cold" "Hot"]
-weatherconditions = "None"
+weatherconditions = "Clear"
 soldCups = 0
 maxcustomers = 100
 customers = 0
@@ -27,7 +28,7 @@ weatherlikelyhoodv = 0
 judgement = "NaN"
 judgementoptions = ["Abysmal" "Bad" "Satisfactory" "Good" "Excellent"]
 customerSatisfaction = 0
-populatiy = 0
+popularity = 0
 
 #defining prices that the player will set. May change with input
 pricepercup = 0.25
@@ -38,9 +39,9 @@ icepercup = 4
 Cups_25 = .81
 Cups_50 = 1.75
 Cups_100 = 1.85
-Lemons_10 = 0.81
-Lemons_30 = 2.26
-Lemons_75 = 4.06
+lemons_10 = 0.81
+lemons_30 = 2.26
+lemons_75 = 4.06
 Sugar_8 = 0.58
 Sugar_20 = 1.63
 Sugar_48 = 3.50
@@ -48,6 +49,13 @@ Ice_100 = 0.86
 Ice_250 = 2.23
 Ice_500 = 3.84
 #defining the prices of the items
+
+#setting the maximum amount of items purchased for a single day for calculating the end of day end of day reports.
+max_ice = 0
+max_lemons = 0
+max_cups = 0
+max_sugar = 0
+#setting the maximum amount of items for a single day for calculating the end of day end of day reports.
 
 #defining the recipie items
 recipie_lemons = 0
@@ -116,19 +124,132 @@ def calculatingcustomers():
     customers = 100
 #Customer Calculations
 
+def timescaleset():
+  global timescale
+  timescale = int(input("How fast would you like the simulation?"))
+  
 
+def diceroller():
+  global dice
+  dice = random.randint(1,10)
+
+def purchasingcustomers():
+  global customers
+  global popularity
+  global dice
+  global hourlycustomers
+  global price
+  global money
+  global lemons
+  global ice
+  global sugar
+  global recipie_lemons
+  global cups
+  global recipie_ice
+  global recipie_sugar
+  g = random.randint(1,5)
+  diceroller()
+  hourlycustomers = customers / 2 * popularity / dice
+  if hourlycustomers <= 16:
+    hourlycustomers = hourlycustomers * g
+    g = random.randint(1,12)
+  if hourlycustomers > 35:
+    hourlycustomers = 23
+  customprofit = 0.50 * hourlycustomers
+  money = customprofit + money
+  hourlycustomers = int(round(hourlycustomers))
+  money = int(round(money))
+  recipiecalc_1 = recipie_lemons * hourlycustomers
+  recipiecalc_2 = recipie_sugar * hourlycustomers
+  recipiecalc_3 = recipie_ice * hourlycustomers
+  lemons = lemons - recipiecalc_1
+  sugar = sugar - recipiecalc_2
+  ice = ice - recipiecalc_3
+  cups = cups - customers
+  customers = customers - hourlycustomers
+  print("You have made: $" ,money, " this past hour.")
+  print(hourlycustomers, " customers visited you this hour.")
+  
+def sellingnothing():
+  while 7 != 19:
+      global hour
+      time.sleep(0)
+      hour = hour + 1
+      if hour == 13:
+        print("It is now: 1PM.")
+      elif hour == 14:
+        print("It is now: 2PM.")
+      elif hour == 15:
+        print("It is now: 3PM.")
+      elif hour == 16:
+        print("It is now: 4PM.")
+      elif hour == 17:
+        print("It is now: 5PM.")
+      elif hour == 18:
+        print("It is now: 6PM.")
+      elif hour == 19:
+        print("It is now: 7PM.")
+      elif hour == 8 or hour == 9 or hour == 10 or hour == 11 or   hour == 12:
+        print("It is now: " ,hour, "AM")
+      if hour == 19:
+        break
+
+def hourlogger():
+  global hour
+  print("It is now 7AM.")  
+  while 7 != 19 or customers > 0 or lemons > 0 or ice > 0 or cups > 0 or sugar > 0:
+    time.sleep(timescale)
+    purchasingcustomers()
+    hour = hour + 1
+    if hour == 13:
+      print("It is now: 1PM.")
+    elif hour == 14:
+      print("It is now: 2PM.")
+    elif hour == 15:
+      print("It is now: 3PM.")
+    elif hour == 16:
+      print("It is now: 4PM.")
+    elif hour == 17:
+      print("It is now: 5PM.")
+    elif hour == 18:
+      print("It is now: 6PM.")
+    elif hour == 19:
+      print("It is now: 7PM.")
+    elif hour == 8 or hour == 9 or hour == 10 or hour == 11 or   hour == 12:
+      print("It is now: " ,hour, "AM")
+    if hour >= 19 or customers <= 0 or ice <= 0 or sugar <= 0 or lemons <= 0:
+        break
+def endofdayreports():
+  soldcups = cups - max_cups 
+  lemonlosses = lemons - max_lemons
+  icelosses = ice - max_ice
+  sugarlosses = sugar - max_sugar
+  print()
+def endofday():
+  print("It's time to close!")
+
+def masterkey():
+  timescaleset()
+  hourlogger()
+  if customers <= 0:
+    print("No more customers!")
+    sellingnothing()
+  elif ice <= 0 or sugar <= 0 or lemons <= 0:
+    print("Ran out of ingredients!")
+    nocustomers()
+  endofday()
 
 #inventory initialization
 
 
 def intentorypage():
 	global cups
-	global Lemons
+	global lemons
 	global ice
 	global sugar
 	print("You have the following:")
 	print(cups, " Cups")
-	print(Lemons, " Lemons")
+	print(lemons, " lemons")
 	print(sugar, " Sugar")
 	print(ice, " Ice")
 
@@ -141,11 +262,24 @@ def daypicker():
   21 days
   """)
 	if days == "7 days" or days == "7 Days" or days == "7 DAYS":
-		days = 7
+		gameLength = 7
 	elif days == "14 days" or days == "14 Days" or days == "14 DAYS":
-		days = 14
+		gameLength = 14
 	elif days == "21 days" or days == "21 Days" or days == "21 DAYS":
-		days = 21
+		gameLength = 21
+
+def gamestartpage():
+  global days
+  global gameLength
+  days = days + 1
+  print("This is day ",days, " of " ,gameLength)
+  print("You currently have: " ,money)
+  print("The weather will be: " ,weather, " and: ",weatherconditions)
+  weatherlikelyhood()
+  recipielikelyhood()
+  customerpricelikelyhood()
+  calculatingcustomers()
+  print("We expect: ",customers, " customers today hopefully.")
 
 def weatherpicker():
   global weather
@@ -188,24 +322,25 @@ def recipiesetup():
 	global sugarperpitcher
 	global pricepercup
 	global icepercup
-	global Lemons
+	global lemons
 	global sugar
 	global ice
 	print("Your recipie is currently:")
-	print("Lemons: ",lemonsperpitcher)
+	print("lemons: ",lemonsperpitcher)
 	print("Sugar: ",sugarperpitcher)
 	print("Ice: " ,icepercup)
 	print("Cup price" ,pricepercup)
 	f = input("""What would you like to edit?
-  Lemons
+  lemons
   Sugar
   Ice
   Cup price
+  To Start the game Type: "Game Continue"
   """)
-	if f == "Lemons" or f == "LEMONS" or f == "lemons":
+	if f == "lemons" or f == "LEMONS" or f == "lemons":
 		lemonsperpitcher = int(
 		    input("Please input how many lemons you'd like in your mix"))
-		if lemonsperpitcher > Lemons:
+		if lemonsperpitcher > lemons:
 		  lemonsperpitcher = 0
 		  print("You cannot input more lemons that you have.")
 		else:
@@ -231,6 +366,8 @@ def recipiesetup():
 		if pricepercup > 2.00 or pricepercup < 0.05:
 		  pricepercup = 0
 		  print("You cannot set the price beyond $2.00 or below $0.05")
+	elif f == "Game Continue" or f == "game continue" or f == "Game continue" or f == "GAME CONTINUE":
+	    gamestartpage()
 
 
 def instructions():
@@ -290,14 +427,14 @@ def purchasecups100():
 
 def purchaselemon10():
 	global money
-	global Lemons
-	Lemons = Lemons + 10
-	moneychange = money - Lemons_10
+	global lemons
+	lemons = lemons + 10
+	moneychange = money - lemons_10
 	money = moneychange
 	round(money)
 	round(money)
 	print(
-	    "You have purchased 10 Lemons. Your funds are now:",
+	    "You have purchased 10 lemons. Your funds are now:",
 	    money,
 	)
 	purchasemenu2()
@@ -305,13 +442,13 @@ def purchaselemon10():
 
 def purchaselemon30():
 	global money
-	global Lemons
-	Lemons = Lemons + 30
-	moneychange = money - Lemons_30
+	global lemons
+	lemons = lemons + 30
+	moneychange = money - lemons_30
 	money = moneychange
 	round(money)
 	print(
-	    "You have purchased 30 Lemons. Your funds are now:",
+	    "You have purchased 30 lemons. Your funds are now:",
 	    money,
 	)
 	purchasemenu2()
@@ -319,13 +456,13 @@ def purchaselemon30():
 
 def purchaselemon75():
 	global money
-	global Lemons
-	Lemons = Lemons + 75
-	moneychange = money - Lemons_75
+	global lemons
+	lemons = lemons + 75
+	moneychange = money - lemons_75
 	money = moneychange
 	round(money)
 	print(
-	    "You have purchased 75 Lemons. Your funds are now:",
+	    "You have purchased 75 lemons. Your funds are now:",
 	    money,
 	)
 	purchasemenu2()
@@ -423,10 +560,10 @@ def purchasemenu():
   'Buy 25 Cups' $0.81
   'Buy 50 Cups' $1.75
   'Buy 100 Cups' $1.85
-  Lemons:
-  'Buy 10 Lemons' $0.81
-  'Buy 30 Lemons' $2.26
-  'Buy 75 Lemons' $4.06
+  lemons:
+  'Buy 10 lemons' $0.81
+  'Buy 30 lemons' $2.26
+  'Buy 75 lemons' $4.06
   Sugar:
   'Buy 8 Sugar' $0.58
   'Buy 20 Sugar' $1.63
@@ -443,11 +580,11 @@ def purchasemenu():
 			purchasecups50()
 		elif purchaseinput == "Buy 100 Cups":
 			purchasecups100()
-		elif purchaseinput == "Buy 10 Lemons":
+		elif purchaseinput == "Buy 10 lemons":
 			purchaselemon10()
-		elif purchaseinput == "Buy 30 Lemons":
+		elif purchaseinput == "Buy 30 lemons":
 			purchaselemon30()
-		elif purchaseinput == "Buy 75 Lemons":
+		elif purchaseinput == "Buy 75 lemons":
 			purchaselemon75()
 		elif purchaseinput == "Buy 8 Sugar":
 			purchasesugar8()
@@ -470,10 +607,10 @@ def purchasemenu2():
   'Buy 25 Cups' $0.81
   'Buy 50 Cups' $1.75
   'Buy 100 Cups' $1.85
-  Lemons:
-  'Buy 10 Lemons' $0.81
-  'Buy 30 Lemons' $2.26
-  'Buy 75 Lemons' $4.06
+  lemons:
+  'Buy 10 lemons' $0.81
+  'Buy 30 lemons' $2.26
+  'Buy 75 lemons' $4.06
   Sugar:
   'Buy 8 Sugar' $0.58
   'Buy 20 Sugar' $1.63
@@ -490,11 +627,11 @@ def purchasemenu2():
 			purchasecups50()
 		elif purchaseinput == "Buy 100 Cups":
 			purchasecups100()
-		elif purchaseinput == "Buy 10 Lemons":
+		elif purchaseinput == "Buy 10 lemons":
 			purchaselemon10()
-		elif purchaseinput == "Buy 30 Lemons":
+		elif purchaseinput == "Buy 30 lemons":
 			purchaselemon30()
-		elif purchaseinput == "Buy 75 Lemons":
+		elif purchaseinput == "Buy 75 lemons":
 			purchaselemon75()
 		elif purchaseinput == "Buy 8 Sugar":
 			purchasesugar8()
@@ -515,9 +652,6 @@ def purchasemenu2():
 			purchasemenu2()
 #Purchasing Functions
 
-instructions()
-
-
 def begininput():
 	start = (input(
 	    print("If you have read these instructions, please type 'START'")))
@@ -525,6 +659,5 @@ def begininput():
 		purchasemenu()
 	else:
 		print("Error, Invalid input. Recalculating...")
-
 
 begininput()
