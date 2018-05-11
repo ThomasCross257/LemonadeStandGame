@@ -24,14 +24,14 @@ maxcustomers = 250
 customers = 0
 customerlikelyhood = 0
 weatherlikelyhoodv = 0
+lemonlosses = 0
+sugarlosses = 0
 judgement = "NaN"
-soldcups = 0
 score = 0
 scorecups = 0
 judgementoptions = ["Abysmal" "Bad" "Satisfactory" "Good" "Excellent"]
 customerSatisfaction = 0
 popularity = 0
-totalprofit = 0
 totalprofits = 0
 lowpricelist = [0.25, 0.26, 0.27, 0.28, 0.29]
 mediumpricelist = [0.30, 0.31, 0.32, 0.34, 0.35,0.36,0.37, 0.38, 0.39, 0.40, 0.41, 0.42, 0.43, 0.44]
@@ -173,6 +173,17 @@ def cash():
   totalprofits = pricepercup * hourlycustomers
   money = customprofit + money
 
+def ingredientloss():
+  global sugar
+  global lemons
+  global ice
+  recipiecalc_1 = recipie_lemons * hourlycustomers
+  recipiecalc_2 = recipie_sugar * hourlycustomers
+  recipiecalc_3 = recipie_ice * hourlycustomers
+  lemons = lemons - recipiecalc_1
+  sugar = sugar - recipiecalc_2
+  ice = ice - recipiecalc_3
+
 def purchasingcustomers():
   global customers
   global popularity
@@ -188,7 +199,6 @@ def purchasingcustomers():
   global recipie_lemons
   global cups
   global recipie_ice
-  global totalprofit
   global recipie_sugar
   g = random.randint(1,5)
   diceroller()
@@ -204,17 +214,12 @@ def purchasingcustomers():
   hourlycustomers = int(round(hourlycustomers))
   cash()
   money = int(round(money))
-  recipiecalc_1 = recipie_lemons * hourlycustomers
-  recipiecalc_2 = recipie_sugar * hourlycustomers
-  recipiecalc_3 = recipie_ice * hourlycustomers
-  lemons = lemons - recipiecalc_1
-  sugar = sugar - recipiecalc_2
-  ice = ice - recipiecalc_3
   cups = cups - hourlycustomers
   customers = customers - hourlycustomers
-  totalprofit = totalprofit + customprofit
+  totalprofits = totalprofits + customprofit
   print("You have made: $" ,customprofit, " this past hour.")
   print(hourlycustomers, " customers visited you this hour.")
+  ingredientloss()
   
 def sellingnothing():
   while 7 != 19:
@@ -257,46 +262,6 @@ def betweendays():
   elif g == "D" or g == "d":
     gamestartpage()
     
-def judgementcalculator():
-    global soldcups
-    global totalprofits
-    global judgement
-    if soldcups in range(30, 45):
-        cuprating = 5
-    elif soldcups in range(46, 75):
-        cuprating = 10
-    elif soldcups in range(76, 110):
-        cuprating = 15
-    elif soldcups > 111:
-        cuprating = 20
-    if totalprofits in range(1, 24):
-        profitrating = 3
-    elif totalprofits in range(25, 49):
-        profitrating = 5
-    elif totalprofits in range(50, 74):
-        profitrating = 10
-    elif totalprofits in range(75, 99):
-        profitrating = 15
-    elif totalprofits > 200:
-        profitrating = 20
-    totalrating = cuprating + profitrating
-    if totalrating < 10:
-        judgement = judgementoptions[0]
-    elif totalrating in range(11,20):
-        judgement = judgementoptions[1]
-    elif totalrating in range(21,30):
-        judgement = judgementoptions[2]
-    elif totalrating in range(31,35):
-        judgement = judgementoptions[3]
-    elif totalrating in range(36,40):
-        judgement = judgementoptions[4]
-
-
-def judgementpage():
-    print("It's the end of the week.")
-    print("In total you managed to sell: " ,soldcups)
-    print("In that time you made: " ,totalprofits)
-    print("Because of this, we're giving you a: " ,judgement, " rating.")
 
 def hourlogger():
   global hour
@@ -327,14 +292,16 @@ def endofdayreports():
   global ice
   global days
   global max_cups
-  global max_lemons
-  global max_sugar
-  global soldcups
+  global recipie_sugar
+  global recipie_lemons
+  global lemonlosses
+  global sugarlosses
   global scorecups
-  soldcups = cups - max_cups 
-  lemonlosses = lemons - max_lemons
+  soldcups = cups - max_cups
+  absoldcups = abs(soldcups)
+  lemonlosses = absoldcups * recipie_lemons
   ice = 0
-  sugarlosses = sugar - max_sugar
+  sugarlosses = absoldcups * recipie_sugar
   scorecups = scorecups + soldcups
   print("You sold: " ,abs(soldcups), " Cups")
   print("You lost: " ,lemonlosses, " units of lemons.")
@@ -342,7 +309,6 @@ def endofdayreports():
   print("All your ice has melted.")
   days = days + 1
   betweendays()
-  
 def endofday():
   print("It's time to close!")
   endofdayreports()
@@ -503,11 +469,12 @@ def recipiesetup():
 		else:
 		    recipiesetup()
 	elif f == "Ice" or f == "ICE" or f == "ice":
-	 icepercup = int(input("Please input how much sugar you'd like in your mix"))
+	 icepercup = int(input("Please input how much ice you'd like in your mix"))
 	 if icepercup > ice:
 	   icepercup = 0
-	   print("You cannot put more ice in that you already have.")
+	   print("You cannot put more ice in than you already have.")
 	   recipiesetup()
+	 recipiesetup()
 	elif f == "Cup price" or f == "Cup Price" or f == "CUP PRICE" or f == "cup price":
 		pricepercup = float(input("Please input the price you would like for your cups."))
 		if pricepercup > 2.00 or pricepercup < 0.05:
@@ -518,6 +485,9 @@ def recipiesetup():
 		  recipiesetup()
 	elif f == "Game Continue" or f == "game continue" or f == "Game continue" or f == "GAME CONTINUE":
 	    gamestartpage()
+	else:
+	  print("Invalid input...")
+	  recipiesetup
 
 def recipiesetup2():
 	global lemonsperpitcher
@@ -876,23 +846,28 @@ def begininput():
 	if start == "START" or start == "start" or start == "Start":
 		purchasemenu()
 	elif start == "debug_quickstart":
-	  global lemons
-	  global max_cups
-	  global ice
-	  global sugar
-	  global cups
-	  global max_lemons
-	  global max_ice
-	  global max_sugar
-	  lemons = 10000
-	  max_lemons = 10000
-	  max_cups = 10000
-	  cups = 10000
-	  ice = 10000
-	  sugar = 10000
-	  max_ice = 10000
-	  max_sugar = 10000
-	  daypicker()
+	  devpassword = input("Enter password:")
+	  if devpassword == "Holdout":
+	    global lemons
+	    global max_cups
+	    global ice
+	    global sugar
+	    global cups
+	    global max_lemons
+	    global max_ice
+	    global max_sugar
+	    lemons = 10000
+	    max_lemons = 10000
+	    max_cups = 10000
+	    cups = 10000
+	    ice = 10000
+	    sugar = 10000
+	    max_ice = 10000
+	    max_sugar = 10000
+	    daypicker()
+	  else:
+	    print("It's not nice trying to impersonate devs! Back to the normal game for you!")
+	    purchasemenu()
 	else:
 		print("Error, Invalid input. Recalculating...")
 
