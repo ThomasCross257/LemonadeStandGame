@@ -293,19 +293,36 @@ def endofdayreports():
   global days
   global max_cups
   global recipie_sugar
+  global max_sugar
+  global sugar
+  global lemons
+  global max_lemons
   global recipie_lemons
-  global lemonlosses
-  global sugarlosses
   global scorecups
   soldcups = cups - max_cups
   absoldcups = abs(soldcups)
-  lemonlosses = absoldcups * recipie_lemons
+  lemonsloss = 0
+  sugarloss = 0
+  if absoldcups in range(16,31):
+    lemonsloss = lemons - recipie_lemons
+    sugarloss = sugar - recipie_sugar
+  elif absoldcups in range(32,47):
+    lemonsloss = lemons - recipie_lemons * 2
+    sugarloss = sugar - recipie_sugar * 2
+  elif absoldcups > 48:
+    lemonsloss = lemons - recipie_lemons * 3
+    sugarloss = sugar - recipie_sugar * 3
+  elif absoldcups in range(8,15):
+    lemonsloss = lemons - recipie_lemons / 2
+    sugarloss = sugar - recipie_sugar / 2
+  elif absoldcups <= 7:
+    lemonsloss = lemons - recipie_lemons / 4
+    sugarloss = sugar - recipie_sugar / 4
   ice = 0
-  sugarlosses = absoldcups * recipie_sugar
   scorecups = scorecups + soldcups
   print("You sold: " ,abs(soldcups), " Cups")
-  print("You lost: " ,lemonlosses, " units of lemons.")
-  print("You lost: " ,sugarlosses, " units of sugar.")
+  print("You lost: " ,lemonsloss, " units of lemons.")
+  print("You lost: " ,sugarloss, " units of sugar.")
   print("All your ice has melted.")
   days = days + 1
   betweendays()
