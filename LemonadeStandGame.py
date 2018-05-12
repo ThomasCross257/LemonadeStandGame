@@ -772,31 +772,31 @@ def purchasemenu():
   'Buy 100 Ice' $0.86
   'Buy 250 Ice' $2.23
   'Buy 500 Ice' $3.84
-  """)))
+  """))).lower()
 	if money > 0:
-		if purchaseinput == "Buy 25 Cups":
+		if purchaseinput == "buy 25 cups":
 			purchasecups25()
-		elif purchaseinput == "Buy 50 Cups":
+		elif purchaseinput == "buy 50 cups":
 			purchasecups50()
-		elif purchaseinput == "Buy 100 Cups":
+		elif purchaseinput == "buy 100 cups":
 			purchasecups100()
-		elif purchaseinput == "Buy 10 lemons":
+		elif purchaseinput == "buy 10 lemons":
 			purchaselemon10()
-		elif purchaseinput == "Buy 30 lemons":
+		elif purchaseinput == "buy 30 lemons":
 			purchaselemon30()
-		elif purchaseinput == "Buy 75 lemons":
+		elif purchaseinput == "buy 75 lemons":
 			purchaselemon75()
-		elif purchaseinput == "Buy 8 Sugar":
+		elif purchaseinput == "buy 8 sugar":
 			purchasesugar8()
-		elif purchaseinput == "Buy 20 Sugar":
+		elif purchaseinput == "buy 20 sugar":
 			purchasesugar20()
-		elif purchaseinput == "Buy 48 Sugar":
+		elif purchaseinput == "buy 48 sugar":
 			purchasesugar48()
-		elif purchaseinput == "Buy 100 Ice":
+		elif purchaseinput == "buy 100 ice":
 			purchaseice100()
-		elif purchaseinput == "Buy 250 Ice":
+		elif purchaseinput == "buy 250 ice":
 			purchaseice250()
-		elif purchaseinput == "Buy 500 Ice":
+		elif purchaseinput == "buy 500 ice":
 			purchaseice500()
 
 def purchasemenu2():
