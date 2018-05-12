@@ -46,6 +46,7 @@ noterietylvl_4 = 44
 #flags
 ranoutofingredients = False
 nomorecustomers = False
+secondmenu = False
 #flags
 
 #defining prices that the player will set. May change with input
@@ -228,8 +229,8 @@ def purchasingcustomers():
   ingredientloss()
   
 def sellingnothing():
-  global hour
-  while hour != 19:
+  while 7 != 19:
+      global hour
       time.sleep(0)
       hour = hour + 1
       if hour == 13:
@@ -246,11 +247,9 @@ def sellingnothing():
         print("It is now: 6PM.")
       elif hour == 19:
         print("It is now: 7PM.")
+        break
       elif hour == 8 or hour == 9 or hour == 10 or hour == 11 or   hour == 12:
         print("It is now: " ,hour, "AM")
-      if hour == 19:
-	hour = 7
-        break
 
 def betweendays():
   print("What would you like to do before the next day?")
@@ -258,7 +257,8 @@ def betweendays():
   A. Change your recipie.
   B. Check your inventory.
   C. Check your funds.
-  D. Start the next day.
+  D. Buy more ingredients
+  E. Start the next day.
   """)
   if g == "A" or g == "a":
     recipiesetup2()
@@ -267,6 +267,8 @@ def betweendays():
   elif g == "C" or g == "c":
     funds()
   elif g == "D" or g == "d":
+    purchasemenu3()
+  elif g == "E" or g == "e":
     gamestartpage()
     
 
@@ -337,7 +339,7 @@ def endofdayreports():
   print("You lost: " ,sugarloss, " units of sugar.")
   print("All your ice has melted.")
   days = days + 1
-  if day > gameLength:
+  if days > gameLength:
     endgame()
   betweendays()
 def endofday():
@@ -396,22 +398,19 @@ def inventorypage():
 def daypicker():
 	global gameLength
 	g = input("""How many days would you like to play?
-  a. 7 days
-  b. 14 days
-  c. 21 days
-  """).lower()
-	if g == "a":
+  7 days
+  14 days
+  21 days
+  """)
+	if g == "7 days" or g == "7 Days" or g == "7 DAYS":
 		gameLength = 7
 		recipiesetup()
-	elif g == "b":
+	elif g == "14 days" or g == "14 Days" or g == "14 DAYS":
 		gameLength = 14
 		recipiesetup()
-	elif g == "c":
+	elif g == "21 days" or g == "21 Days" or g == "21 DAYS":
 		gameLength = 21
 		recipiesetup()
-	else:
-		print("Input error. Please try again")
-		daypicker()
 
 def gamestartpage():
   global days
@@ -485,17 +484,16 @@ def recipiesetup():
   Ice
   Cup price
   To Start the game Type: "Game Continue"
-  """).lower()
-	if f == "lemons":
+  """)
+	if f == "lemons" or f == "LEMONS" or f == "lemons":
 		lemonsperpitcher = int(
 		    input("Please input how many lemons you'd like in your mix"))
 		if lemonsperpitcher > lemons:
 		  lemonsperpitcher = 0
 		  print("You cannot input more lemons that you have.")
-		  recipiesetup()
 		else:
 		  recipiesetup()
-	elif f == "sugar":
+	elif f == "Sugar" or f == "SUGAR" or f == "sugar":
 		sugarperpitcher = int(
 		    input("Please input how much sugar you'd like in your mix"))
 		if sugarperpitcher > sugar:
@@ -504,26 +502,25 @@ def recipiesetup():
 		  recipiesetup()
 		else:
 		    recipiesetup()
-	elif f == "ice":
+	elif f == "Ice" or f == "ICE" or f == "ice":
 	 icepercup = int(input("Please input how much ice you'd like in your mix"))
 	 if icepercup > ice:
 	   icepercup = 0
 	   print("You cannot put more ice in than you already have.")
 	   recipiesetup()
 	 recipiesetup()
-	elif f == "cup price":
+	elif f == "Cup price" or f == "Cup Price" or f == "CUP PRICE" or f == "cup price":
 		pricepercup = float(input("Please input the price you would like for your cups."))
 		if pricepercup > 2.00 or pricepercup < 0.05:
 		  pricepercup = 0
 		  print("You cannot set the price beyond $2.00 or below $0.05")
 		  recipiesetup()
-		else:
-		  recipiesetup()
-	elif f == "game continue":
+		recipiesetup()
+	elif f == "Game Continue" or f == "game continue" or f == "Game continue" or f == "GAME CONTINUE":
 	    gamestartpage()
 	else:
 	  print("Invalid input...")
-	  recipiesetup()
+	  recipiesetup
 
 def recipiesetup2():
 	global lemonsperpitcher
@@ -544,8 +541,8 @@ def recipiesetup2():
   Ice
   Cup price
   To go back to the previous menu, simply type: "Back"
-  """).lower()
-	if f == "lemons":
+  """)
+	if f == "lemons" or f == "LEMONS" or f == "lemons":
 		lemonsperpitcher = int(
 		    input("Please input how many lemons you'd like in your mix"))
 		if lemonsperpitcher > lemons:
@@ -553,7 +550,7 @@ def recipiesetup2():
 		  print("You cannot input more lemons that you have.")
 		else:
 		  recipiesetup()
-	elif f == "sugar":
+	elif f == "Sugar" or f == "SUGAR" or f == "sugar":
 		sugarperpitcher = int(
 		    input("Please input how much sugar you'd like in your mix"))
 		if sugarperpitcher > sugar:
@@ -562,13 +559,13 @@ def recipiesetup2():
 		  recipiesetup()
 		else:
 		    recipiesetup()
-	elif f == "ice":
+	elif f == "Ice" or f == "ICE" or f == "ice":
 	 icepercup = int(input("Please input how much sugar you'd like in your mix"))
 	 if icepercup > ice:
 	   icepercup = 0
 	   print("You cannot put more ice in that you already have.")
 	   recipiesetup()
-	elif f == "cup price":
+	elif f == "Cup price" or f == "Cup Price" or f == "CUP PRICE" or f == "cup price":
 		pricepercup = float(input("Please input the price you would like for your cups."))
 		if pricepercup > 2.00 or pricepercup < 0.05:
 		  pricepercup = 0
@@ -576,7 +573,7 @@ def recipiesetup2():
 		  recipiesetup()
 		else:
 		  recipiesetup()
-	elif f == "back":
+	elif f == "Back" or f == "back":
 	    betweendays()
 
 #Purchasing functions
@@ -593,7 +590,10 @@ def purchasecups25():
 	    "You have purchased 25 cups. Your funds are now:",
 	    money,
 	)
-	purchasemenu2()
+	if secondmenu == True:
+	  purchasemenu3()
+	else:
+	  purchasemenu2()
 
 def purchasecups50():
 	global money
@@ -779,31 +779,31 @@ def purchasemenu():
   'Buy 100 Ice' $0.86
   'Buy 250 Ice' $2.23
   'Buy 500 Ice' $3.84
-  """))).lower()
+  """)))
 	if money > 0:
-		if purchaseinput == "buy 25 cups":
+		if purchaseinput == "Buy 25 Cups":
 			purchasecups25()
-		elif purchaseinput == "buy 50 cups":
+		elif purchaseinput == "Buy 50 Cups":
 			purchasecups50()
-		elif purchaseinput == "buy 100 cups":
+		elif purchaseinput == "Buy 100 Cups":
 			purchasecups100()
-		elif purchaseinput == "buy 10 lemons":
+		elif purchaseinput == "Buy 10 lemons":
 			purchaselemon10()
-		elif purchaseinput == "buy 30 lemons":
+		elif purchaseinput == "Buy 30 lemons":
 			purchaselemon30()
-		elif purchaseinput == "buy 75 lemons":
+		elif purchaseinput == "Buy 75 lemons":
 			purchaselemon75()
-		elif purchaseinput == "buy 8 sugar":
+		elif purchaseinput == "Buy 8 Sugar":
 			purchasesugar8()
-		elif purchaseinput == "buy 20 sugar":
+		elif purchaseinput == "Buy 20 Sugar":
 			purchasesugar20()
-		elif purchaseinput == "buy 48 sugar":
+		elif purchaseinput == "Buy 48 Sugar":
 			purchasesugar48()
-		elif purchaseinput == "buy 100 ice":
+		elif purchaseinput == "Buy 100 Ice":
 			purchaseice100()
-		elif purchaseinput == "buy 250 ice":
+		elif purchaseinput == "Buy 250 Ice":
 			purchaseice250()
-		elif purchaseinput == "buy 500 ice":
+		elif purchaseinput == "Buy 500 Ice":
 			purchaseice500()
 
 def purchasemenu2():
@@ -825,40 +825,94 @@ def purchasemenu2():
   'Buy 100 Ice' $0.86
   'Buy 250 Ice' $2.23
   'Buy 500 Ice' $3.84
-  """))).lower()
+  """)))
 	if money > 0:
-		if purchaseinput == "buy 25 cups":
+		if purchaseinput == "Buy 25 Cups":
 			purchasecups25()
-		elif purchaseinput == "buy 50 cups":
+		elif purchaseinput == "Buy 50 Cups":
 			purchasecups50()
-		elif purchaseinput == "buy 100 cups":
+		elif purchaseinput == "Buy 100 Cups":
 			purchasecups100()
-		elif purchaseinput == "buy 10 lemons":
+		elif purchaseinput == "Buy 10 lemons":
 			purchaselemon10()
-		elif purchaseinput == "buy 30 lemons":
+		elif purchaseinput == "Buy 30 lemons":
 			purchaselemon30()
-		elif purchaseinput == "buy 75 lemons":
+		elif purchaseinput == "Buy 75 lemons":
 			purchaselemon75()
-		elif purchaseinput == "buy 8 sugar":
+		elif purchaseinput == "Buy 8 Sugar":
 			purchasesugar8()
-		elif purchaseinput == "buy 20 sugar":
+		elif purchaseinput == "Buy 20 Sugar":
 			purchasesugar20()
-		elif purchaseinput == "buy 48 sugar":
+		elif purchaseinput == "Buy 48 Sugar":
 			purchasesugar48()
-		elif purchaseinput == "buy 100 ice":
+		elif purchaseinput == "Buy 100 Ice":
 			purchaseice100()
-		elif purchaseinput == "buy 250 ice":
+		elif purchaseinput == "Buy 250 Ice":
 			purchaseice250()
-		elif purchaseinput == "buy 500 ice":
+		elif purchaseinput == "Buy 500 Ice":
 			purchaseice500()
-		elif purchaseinput == "days":
+		elif purchaseinput == "days" or purchaseinput == "Days" or purchaseinput == "DAYS":
 			daypicker()
+			secondmenu = True
 		else:
 			print("Incorrect input, redirecting")
 			purchasemenu2()
 	elif money <= 7:
 	  print("You are dangerously close to overspending! For the sakes of this game you will no longer be able to purchase anymore items.")
+	  secondmenu = True
 	  daypicker()
+
+def purchasemenu3():
+	purchaseinput = (input(
+	    print("""Restock on anything you'd like until you feel like going back to the menu. Type: 'Return' to go back to the menu.
+  Cups:
+  'Buy 25 Cups' $0.81
+  'Buy 50 Cups' $1.75
+  'Buy 100 Cups' $1.85
+  lemons:
+  'Buy 10 lemons' $0.81
+  'Buy 30 lemons' $2.26
+  'Buy 75 lemons' $4.06
+  Sugar:
+  'Buy 8 Sugar' $0.58
+  'Buy 20 Sugar' $1.63
+  'Buy 48 Sugar' $3.50
+  Ice:
+  'Buy 100 Ice' $0.86
+  'Buy 250 Ice' $2.23
+  'Buy 500 Ice' $3.84
+  """)))
+	if money > 0:
+		if purchaseinput == "Buy 25 Cups":
+			purchasecups25()
+		elif purchaseinput == "Buy 50 Cups":
+			purchasecups50()
+		elif purchaseinput == "Buy 100 Cups":
+			purchasecups100()
+		elif purchaseinput == "Buy 10 lemons":
+			purchaselemon10()
+		elif purchaseinput == "Buy 30 lemons":
+			purchaselemon30()
+		elif purchaseinput == "Buy 75 lemons":
+			purchaselemon75()
+		elif purchaseinput == "Buy 8 Sugar":
+			purchasesugar8()
+		elif purchaseinput == "Buy 20 Sugar":
+			purchasesugar20()
+		elif purchaseinput == "Buy 48 Sugar":
+			purchasesugar48()
+		elif purchaseinput == "Buy 100 Ice":
+			purchaseice100()
+		elif purchaseinput == "Buy 250 Ice":
+			purchaseice250()
+		elif purchaseinput == "Buy 500 Ice":
+			purchaseice500()
+		elif purchaseinput == "Return" or purchaseinput == "return" or purchaseinput == "RETURN":
+			betweendays()
+		else:
+			print("Incorrect input, redirecting")
+			purchasemenu3()
+
 #Purchasing Functions
 
 def instructions():
@@ -878,8 +932,8 @@ def instructions():
 def begininput():
 	instructions()
 	start = (input(
-	    print("If you have read these instructions, please type 'START'"))).lower()
-	if start == "start":
+	    print("If you have read these instructions, please type 'START'")))
+	if start == "START" or start == "start" or start == "Start":
 		purchasemenu()
 	elif start == "debug_quickstart":
 	  devpassword = input("Enter password:")
