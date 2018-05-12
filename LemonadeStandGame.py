@@ -228,8 +228,8 @@ def purchasingcustomers():
   ingredientloss()
   
 def sellingnothing():
-  while 7 != 19:
-      global hour
+  global hour
+  while hour != 19:
       time.sleep(0)
       hour = hour + 1
       if hour == 13:
@@ -249,6 +249,7 @@ def sellingnothing():
       elif hour == 8 or hour == 9 or hour == 10 or hour == 11 or   hour == 12:
         print("It is now: " ,hour, "AM")
       if hour == 19:
+	hour = 7
         break
 
 def betweendays():
