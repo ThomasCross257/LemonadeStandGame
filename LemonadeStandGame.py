@@ -394,19 +394,22 @@ def inventorypage():
 def daypicker():
 	global gameLength
 	g = input("""How many days would you like to play?
-  7 days
-  14 days
-  21 days
-  """)
-	if g == "7 days" or g == "7 Days" or g == "7 DAYS":
+  a. 7 days
+  b. 14 days
+  c. 21 days
+  """).lower()
+	if g == "a":
 		gameLength = 7
 		recipiesetup()
-	elif g == "14 days" or g == "14 Days" or g == "14 DAYS":
+	elif g == "b":
 		gameLength = 14
 		recipiesetup()
-	elif g == "21 days" or g == "21 Days" or g == "21 DAYS":
+	elif g == "c":
 		gameLength = 21
 		recipiesetup()
+	else:
+		print("Input error. Please try again")
+		daypicker()
 
 def gamestartpage():
   global days
@@ -480,8 +483,8 @@ def recipiesetup():
   Ice
   Cup price
   To Start the game Type: "Game Continue"
-  """)
-	if f == "lemons" or f == "LEMONS" or f == "lemons":
+  """).lower()
+	if f == "lemons":
 		lemonsperpitcher = int(
 		    input("Please input how many lemons you'd like in your mix"))
 		if lemonsperpitcher > lemons:
@@ -489,7 +492,7 @@ def recipiesetup():
 		  print("You cannot input more lemons that you have.")
 		else:
 		  recipiesetup()
-	elif f == "Sugar" or f == "SUGAR" or f == "sugar":
+	elif f == "sugar":
 		sugarperpitcher = int(
 		    input("Please input how much sugar you'd like in your mix"))
 		if sugarperpitcher > sugar:
@@ -498,14 +501,14 @@ def recipiesetup():
 		  recipiesetup()
 		else:
 		    recipiesetup()
-	elif f == "Ice" or f == "ICE" or f == "ice":
+	elif f == "ice":
 	 icepercup = int(input("Please input how much ice you'd like in your mix"))
 	 if icepercup > ice:
 	   icepercup = 0
 	   print("You cannot put more ice in than you already have.")
 	   recipiesetup()
 	 recipiesetup()
-	elif f == "Cup price" or f == "Cup Price" or f == "CUP PRICE" or f == "cup price":
+	elif f == "cup price":
 		pricepercup = float(input("Please input the price you would like for your cups."))
 		if pricepercup > 2.00 or pricepercup < 0.05:
 		  pricepercup = 0
@@ -513,11 +516,11 @@ def recipiesetup():
 		  recipiesetup()
 		else:
 		  recipiesetup()
-	elif f == "Game Continue" or f == "game continue" or f == "Game continue" or f == "GAME CONTINUE":
+	elif f == "game continue":
 	    gamestartpage()
 	else:
 	  print("Invalid input...")
-	  recipiesetup
+	  recipiesetup()
 
 def recipiesetup2():
 	global lemonsperpitcher
