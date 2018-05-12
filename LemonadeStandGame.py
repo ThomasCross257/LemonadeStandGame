@@ -337,6 +337,8 @@ def endofdayreports():
   print("You lost: " ,sugarloss, " units of sugar.")
   print("All your ice has melted.")
   days = days + 1
+  if day > gameLength:
+    endgame()
   betweendays()
 def endofday():
   print("It's time to close!")
@@ -364,7 +366,7 @@ def masterkey():
 #inventory initialization
 
 def endgame():
-  print("You've lost!")
+  print("Game Over!")
   g = input("Would you like to play again? (Y/N)")
   if g == "Y":
     os.execl(sys.executable, sys.executable, *sys.argv) 
