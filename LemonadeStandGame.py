@@ -490,6 +490,7 @@ def recipiesetup():
 		if lemonsperpitcher > lemons:
 		  lemonsperpitcher = 0
 		  print("You cannot input more lemons that you have.")
+		  recipiesetup()
 		else:
 		  recipiesetup()
 	elif f == "sugar":
