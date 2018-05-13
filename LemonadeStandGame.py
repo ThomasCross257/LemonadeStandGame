@@ -259,16 +259,16 @@ def betweendays():
   C. Check your funds.
   D. Buy more ingredients
   E. Start the next day.
-  """)
-  if g == "A" or g == "a":
+  """).lower()
+  if g == "a":
     recipiesetup2()
-  elif g == "B" or g == "B":
+  elif g == "b":
     inventorypage()
-  elif g == "C" or g == "c":
+  elif g == "c":
     funds()
-  elif g == "D" or g == "d":
+  elif g == "d":
     purchasemenu3()
-  elif g == "E" or g == "e":
+  elif g == "e":
     gamestartpage()
     
 
@@ -398,19 +398,22 @@ def inventorypage():
 def daypicker():
 	global gameLength
 	g = input("""How many days would you like to play?
-  7 days
-  14 days
-  21 days
-  """)
-	if g == "7 days" or g == "7 Days" or g == "7 DAYS":
+  a. 7 days
+  b. 14 days
+  c. 21 days
+  """).lower()
+	if g == "7 days" or g == "a":
 		gameLength = 7
 		recipiesetup()
-	elif g == "14 days" or g == "14 Days" or g == "14 DAYS":
+	elif g == "14 days" or g == "b":
 		gameLength = 14
 		recipiesetup()
-	elif g == "21 days" or g == "21 Days" or g == "21 DAYS":
+	elif g == "21 days" or g == "c":
 		gameLength = 21
 		recipiesetup()
+	else:
+		print("Input error. Please try again")
+		daypicker()
 
 def gamestartpage():
   global days
@@ -479,13 +482,13 @@ def recipiesetup():
 	print("Ice: " ,icepercup)
 	print("Cup price" ,pricepercup)
 	f = input("""What would you like to edit?
-  lemons
-  Sugar
-  Ice
-  Cup price
-  To Start the game Type: "Game Continue"
+  a. lemons
+  b. Sugar
+  c. Ice
+  d. Cup price
+  To Start the game: press ENTER
   """)
-	if f == "lemons" or f == "LEMONS" or f == "lemons":
+	if f == "lemons" or "a":
 		lemonsperpitcher = int(
 		    input("Please input how many lemons you'd like in your mix"))
 		if lemonsperpitcher > lemons:
@@ -493,7 +496,7 @@ def recipiesetup():
 		  print("You cannot input more lemons that you have.")
 		else:
 		  recipiesetup()
-	elif f == "Sugar" or f == "SUGAR" or f == "sugar":
+	elif f == "sugar" or "b":
 		sugarperpitcher = int(
 		    input("Please input how much sugar you'd like in your mix"))
 		if sugarperpitcher > sugar:
@@ -502,21 +505,21 @@ def recipiesetup():
 		  recipiesetup()
 		else:
 		    recipiesetup()
-	elif f == "Ice" or f == "ICE" or f == "ice":
+	elif f == "ice" or "c":
 	 icepercup = int(input("Please input how much ice you'd like in your mix"))
 	 if icepercup > ice:
 	   icepercup = 0
 	   print("You cannot put more ice in than you already have.")
 	   recipiesetup()
 	 recipiesetup()
-	elif f == "Cup price" or f == "Cup Price" or f == "CUP PRICE" or f == "cup price":
+	elif f == "cup price" or "d":
 		pricepercup = float(input("Please input the price you would like for your cups."))
 		if pricepercup > 2.00 or pricepercup < 0.05:
 		  pricepercup = 0
 		  print("You cannot set the price beyond $2.00 or below $0.05")
 		  recipiesetup()
 		recipiesetup()
-	elif f == "Game Continue" or f == "game continue" or f == "Game continue" or f == "GAME CONTINUE":
+	elif f == "":
 	    gamestartpage()
 	else:
 	  print("Invalid input...")
