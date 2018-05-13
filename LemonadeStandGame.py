@@ -935,8 +935,8 @@ def instructions():
 def begininput():
 	instructions()
 	start = (input(
-	    print("If you have read these instructions, please type 'START'")))
-	if start == "START" or start == "start" or start == "Start":
+	    print("If you have read these instructions, please type 'START'"))).lower()
+	if start == "start":
 		purchasemenu()
 	elif start == "debug_quickstart":
 	  devpassword = input("Enter password:")
