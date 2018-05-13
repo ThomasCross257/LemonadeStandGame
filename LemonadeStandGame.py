@@ -344,6 +344,7 @@ def endofdayreports():
   betweendays()
 def endofday():
   print("It's time to close!")
+  hour = 7
   endofdayreports()
 
 def masterkey():
