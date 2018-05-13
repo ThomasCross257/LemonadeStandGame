@@ -82,9 +82,6 @@ liquidatedinventory = lemons + ice + cups + sugar
 #variables used for the bankrupt page.
 
 #defining the recipie items
-recipie_lemons = 0
-recipie_sugar = 0
-recipie_ice = 0
 sugar_probability = 0
 ice_probability = 0
 lemon_probability = 0
@@ -106,30 +103,30 @@ def weatherlikelyhood():
     g = random.randint(5,10)
     weatherlikelyhoodv = g + weatherlikelyhoodv
 def recipielikelyhood():
-  global recipie_sugar
-  global recipie_ice
-  global recipie_lemons
+  global sugarperpitcher
+  global icepercup
+  global lemonsperpitcher
   global sugar_probability
   global ice_probability
   global lemons_probability
   
-  if recipie_sugar in range(4,7):
+  if sugarperpitcher in range(4,7):
     sugar_probability = random.randint(3,8)
-  if recipie_ice in range(2,4):
+  if icepercup in range(2,4):
     ice_probability = random.randint
-  if recipie_lemons <= 2:
+  if lemonsperpitcher <= 2:
     lemons_probability = random.randint(0,1)
-  elif recipie_sugar <= 3:
+  elif sugarperpitcher <= 3:
     sugar_probability = random.randint(1,2)
-  elif recipie_ice > 4:
+  elif icepercup > 4:
     ice_probability = random.randint(1,6)
-  elif recipie_lemons > 5:
+  elif lemonsperpitcher > 5:
     lemons_probability = random.randint(1,5)
-  elif recipie_sugar >= 8:
+  elif sugarperpitcher >= 8:
     sugar_probability = random.randint(1,4)
-  elif recipie_ice <= 1:
+  elif icepercup <= 1:
     ice_probability = random.randint(1,5)
-  elif recipie_lemons in range(3,5):
+  elif lemonsperpitcher in range(3,5):
     lemons_probability = random.randint(2,4)
 def customerpricelikelyhood():
   global pricepercup
@@ -184,9 +181,9 @@ def ingredientloss():
   global sugar
   global lemons
   global ice
-  recipiecalc_1 = recipie_lemons * hourlycustomers
-  recipiecalc_2 = recipie_sugar * hourlycustomers
-  recipiecalc_3 = recipie_ice * hourlycustomers
+  recipiecalc_1 = lemonsperpitcher * hourlycustomers
+  recipiecalc_2 = sugarperpitcher * hourlycustomers
+  recipiecalc_3 = icepercup * hourlycustomers
   lemons = lemons - recipiecalc_1
   sugar = sugar - recipiecalc_2
   ice = ice - recipiecalc_3
@@ -203,10 +200,10 @@ def purchasingcustomers():
   global customprofit
   global totalprofits
   global sugar
-  global recipie_lemons
+  global lemonsperpitcher
   global cups
-  global recipie_ice
-  global recipie_sugar
+  global icepercup
+  global sugarperpitcher
   g = random.randint(1,5)
   diceroller()
   hourlycustomers = 5 + customers * popularity + dice / 2
@@ -229,8 +226,8 @@ def purchasingcustomers():
   ingredientloss()
   
 def sellingnothing():
-  global hour
-  while hour != 19:
+  while 7 != 19:
+      global hour
       time.sleep(0)
       hour = hour + 1
       if hour == 13:
@@ -259,16 +256,16 @@ def betweendays():
   C. Check your funds.
   D. Buy more ingredients
   E. Start the next day.
-  """).lower()
-  if g == "a":
+  """)
+  if g == "A" or g == "a":
     recipiesetup2()
-  elif g == "b":
+  elif g == "B" or g == "B":
     inventorypage()
-  elif g == "c":
+  elif g == "C" or g == "c":
     funds()
-  elif g == "d":
+  elif g == "D" or g == "d":
     purchasemenu3()
-  elif g == "e":
+  elif g == "E" or g == "e":
     gamestartpage()
     
 
@@ -301,33 +298,41 @@ def endofdayreports():
   global ice
   global days
   global max_cups
-  global recipie_sugar
+  global sugarperpitcher
   global max_sugar
   global sugar
   global popularity
   global lemons
   global max_lemons
-  global recipie_lemons
+  global lemonsperpitcher
   global scorecups
   soldcups = cups - max_cups
-  absoldcups = abs(soldcups)
-  lemonsloss = 0
-  sugarloss = 0
+  absoldcups = abs(soldcups) #Eliminate any decimals or false negatives
+  
+  #Examining if the amount of sold cups by multiplying or dividing depending on how many cups have been used.
   if absoldcups in range(16,31):
-    lemonsloss = lemons - recipie_lemons
-    sugarloss = sugar - recipie_sugar
+    lemonsloss = lemonsperpitcher * soldcups 
+    #Multiplication/Divison operator absent as there are 16 cups in a gallon The range enveloping more than 16 is inaccurate but there is no other method at the moment to change that.
+    sugarloss = sugarperpitcher * soldcups
   elif absoldcups in range(32,47):
-    lemonsloss = lemons - recipie_lemons * 2
-    sugarloss = sugar - recipie_sugar * 2
+    lemonsloss = lemonsperpitcher * soldcups * 2
+    sugarloss = sugarperpitcher * soldcups * 2
   elif absoldcups > 48:
-    lemonsloss = lemons - recipie_lemons * 3
-    sugarloss = sugar - recipie_sugar * 3
+    lemonsloss = lemonsperpitcher * soldcups * 4
+    sugarloss = sugarperpitcher * soldcups * 4
   elif absoldcups in range(8,15):
-    lemonsloss = lemons - recipie_lemons / 2
-    sugarloss = sugar - recipie_sugar / 2
+    lemonsloss = lemonsperpitcher * soldcups / 2
+    sugarloss = sugarperpitcher * soldcups / 2
   elif absoldcups <= 7:
-    lemonsloss = lemons - recipie_lemons / 4
-    sugarloss = sugar - recipie_sugar / 4
+    lemonsloss = lemonsperpitcher * soldcups / 4
+    sugarloss = sugarperpitcher * soldcups / 4
+  else:
+    lemonsloss = 0
+    sugarloss = 0
+  absingred1 = abs(sugarloss)
+  absingred2 = abs(lemonsloss)
+  lemons = lemons - absingred2
+  sugar = sugar - absingred1
   ice = 0
   if soldcups >= noterietylvl_1 or soldcups >= noterietylvl_2 or soldcups >= noterietylvl_3 or soldcups >= noterietylvl_4:
     print("You are becoming more popular!")
@@ -335,8 +340,8 @@ def endofdayreports():
     print("Your popularity is now: " ,popularity)
   scorecups = scorecups + soldcups
   print("You sold: " ,abs(soldcups), " Cups")
-  print("You lost: " ,lemonsloss, " units of lemons.")
-  print("You lost: " ,sugarloss, " units of sugar.")
+  print("You lost: " ,abs(lemonsloss), " units of lemons.")
+  print("You lost: " ,abs(sugarloss), " units of sugar.")
   print("All your ice has melted.")
   days = days + 1
   if days > gameLength:
@@ -344,8 +349,6 @@ def endofdayreports():
   betweendays()
 def endofday():
   print("It's time to close!")
-  global hour
-  hour = 7
   endofdayreports()
 
 def masterkey():
@@ -354,7 +357,7 @@ def masterkey():
   timescaleset()
   hourlogger()
   if customers <= 0:
-    nomorecustomers == True
+    nomorecustomers = True
     print("No more customers are interested!")
     sellingnothing()
   elif ice <= 0 or sugar <= 0 or lemons <= 0:
@@ -400,22 +403,19 @@ def inventorypage():
 def daypicker():
 	global gameLength
 	g = input("""How many days would you like to play?
-  a. 7 days
-  b. 14 days
-  c. 21 days
-  """).lower()
-	if g == "7 days" or g == "a":
+  7 days
+  14 days
+  21 days
+  """)
+	if g == "7 days" or g == "7 Days" or g == "7 DAYS":
 		gameLength = 7
 		recipiesetup()
-	elif g == "14 days" or g == "b":
+	elif g == "14 days" or g == "14 Days" or g == "14 DAYS":
 		gameLength = 14
 		recipiesetup()
-	elif g == "21 days" or g == "c":
+	elif g == "21 days" or g == "21 Days" or g == "21 DAYS":
 		gameLength = 21
 		recipiesetup()
-	else:
-		print("Input error. Please try again")
-		daypicker()
 
 def gamestartpage():
   global days
@@ -484,13 +484,13 @@ def recipiesetup():
 	print("Ice: " ,icepercup)
 	print("Cup price" ,pricepercup)
 	f = input("""What would you like to edit?
-  a. lemons
-  b. Sugar
-  c. Ice
-  d. Cup price
-  To Start the game: press ENTER
-  """).lower()
-	if f == "lemons" or f == "a":
+  lemons
+  Sugar
+  Ice
+  Cup price
+  To Start the game Type: "Game Continue"
+  """)
+	if f == "lemons" or f == "LEMONS" or f == "lemons":
 		lemonsperpitcher = int(
 		    input("Please input how many lemons you'd like in your mix"))
 		if lemonsperpitcher > lemons:
@@ -498,7 +498,7 @@ def recipiesetup():
 		  print("You cannot input more lemons that you have.")
 		else:
 		  recipiesetup()
-	elif f == "sugar" or f == "b":
+	elif f == "Sugar" or f == "SUGAR" or f == "sugar":
 		sugarperpitcher = int(
 		    input("Please input how much sugar you'd like in your mix"))
 		if sugarperpitcher > sugar:
@@ -507,21 +507,21 @@ def recipiesetup():
 		  recipiesetup()
 		else:
 		    recipiesetup()
-	elif f == "ice" or f == "c":
+	elif f == "Ice" or f == "ICE" or f == "ice":
 	 icepercup = int(input("Please input how much ice you'd like in your mix"))
 	 if icepercup > ice:
 	   icepercup = 0
 	   print("You cannot put more ice in than you already have.")
 	   recipiesetup()
 	 recipiesetup()
-	elif f == "cup price" or f == "d":
+	elif f == "Cup price" or f == "Cup Price" or f == "CUP PRICE" or f == "cup price":
 		pricepercup = float(input("Please input the price you would like for your cups."))
 		if pricepercup > 2.00 or pricepercup < 0.05:
 		  pricepercup = 0
 		  print("You cannot set the price beyond $2.00 or below $0.05")
 		  recipiesetup()
 		recipiesetup()
-	elif f == "":
+	elif f == "Game Continue" or f == "game continue" or f == "Game continue" or f == "GAME CONTINUE":
 	    gamestartpage()
 	else:
 	  print("Invalid input...")
@@ -541,13 +541,13 @@ def recipiesetup2():
 	print("Ice: " ,icepercup)
 	print("Cup price" ,pricepercup)
 	f = input("""What would you like to edit?
-  a. lemons
-  b. Sugar
-  c. Ice
-  d. Cup price
+  lemons
+  Sugar
+  Ice
+  Cup price
   To go back to the previous menu, simply type: "Back"
-  """).lower()
-	if f == "lemons" or f == "a":
+  """)
+	if f == "lemons" or f == "LEMONS" or f == "lemons":
 		lemonsperpitcher = int(
 		    input("Please input how many lemons you'd like in your mix"))
 		if lemonsperpitcher > lemons:
@@ -555,7 +555,7 @@ def recipiesetup2():
 		  print("You cannot input more lemons that you have.")
 		else:
 		  recipiesetup()
-	elif f == "sugar" or f == "b":
+	elif f == "Sugar" or f == "SUGAR" or f == "sugar":
 		sugarperpitcher = int(
 		    input("Please input how much sugar you'd like in your mix"))
 		if sugarperpitcher > sugar:
@@ -564,13 +564,13 @@ def recipiesetup2():
 		  recipiesetup()
 		else:
 		    recipiesetup()
-	elif f == "ice" or f == "c":
+	elif f == "Ice" or f == "ICE" or f == "ice":
 	 icepercup = int(input("Please input how much sugar you'd like in your mix"))
 	 if icepercup > ice:
 	   icepercup = 0
 	   print("You cannot put more ice in that you already have.")
 	   recipiesetup()
-	elif f == "cup price" or f == "d":
+	elif f == "Cup price" or f == "Cup Price" or f == "CUP PRICE" or f == "cup price":
 		pricepercup = float(input("Please input the price you would like for your cups."))
 		if pricepercup > 2.00 or pricepercup < 0.05:
 		  pricepercup = 0
@@ -578,10 +578,8 @@ def recipiesetup2():
 		  recipiesetup()
 		else:
 		  recipiesetup()
-	elif f == "back":
+	elif f == "Back" or f == "back":
 	    betweendays()
-	else:
-	    recipiesetup2()
 
 #Purchasing functions
 def purchasecups25():
@@ -786,34 +784,32 @@ def purchasemenu():
   'Buy 100 Ice' $0.86
   'Buy 250 Ice' $2.23
   'Buy 500 Ice' $3.84
-  """))).lower()
+  """)))
 	if money > 0:
-		if purchaseinput == "buy 25 cups":
+		if purchaseinput == "Buy 25 Cups":
 			purchasecups25()
-		elif purchaseinput == "buy 50 cups":
+		elif purchaseinput == "Buy 50 Cups":
 			purchasecups50()
-		elif purchaseinput == "buy 100 cups":
+		elif purchaseinput == "Buy 100 Cups":
 			purchasecups100()
-		elif purchaseinput == "buy 10 lemons":
+		elif purchaseinput == "Buy 10 lemons":
 			purchaselemon10()
-		elif purchaseinput == "buy 30 lemons":
+		elif purchaseinput == "Buy 30 lemons":
 			purchaselemon30()
-		elif purchaseinput == "buy 75 lemons":
+		elif purchaseinput == "Buy 75 lemons":
 			purchaselemon75()
-		elif purchaseinput == "buy 8 sugar":
+		elif purchaseinput == "Buy 8 Sugar":
 			purchasesugar8()
-		elif purchaseinput == "buy 20 sugar":
+		elif purchaseinput == "Buy 20 Sugar":
 			purchasesugar20()
-		elif purchaseinput == "buy 48 sugar":
+		elif purchaseinput == "Buy 48 Sugar":
 			purchasesugar48()
-		elif purchaseinput == "buy 100 ice":
+		elif purchaseinput == "Buy 100 Ice":
 			purchaseice100()
-		elif purchaseinput == "buy 250 ice":
+		elif purchaseinput == "Buy 250 Ice":
 			purchaseice250()
-		elif purchaseinput == "buy 500 ice":
+		elif purchaseinput == "Buy 500 Ice":
 			purchaseice500()
-		else:
-			purchasemenu()
 
 def purchasemenu2():
 	purchaseinput = (input(
@@ -941,8 +937,8 @@ def instructions():
 def begininput():
 	instructions()
 	start = (input(
-	    print("If you have read these instructions, please type 'START'"))).lower()
-	if start == "start":
+	    print("If you have read these instructions, please type 'START'")))
+	if start == "START" or start == "start" or start == "Start":
 		purchasemenu()
 	elif start == "debug_quickstart":
 	  devpassword = input("Enter password:")
@@ -969,6 +965,5 @@ def begininput():
 	    purchasemenu()
 	else:
 		print("Error, Invalid input. Recalculating...")
-		begininput()
 
 begininput()
