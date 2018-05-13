@@ -487,7 +487,7 @@ def recipiesetup():
   c. Ice
   d. Cup price
   To Start the game: press ENTER
-  """)
+  """).lower()
 	if f == "lemons" or "a":
 		lemonsperpitcher = int(
 		    input("Please input how many lemons you'd like in your mix"))
