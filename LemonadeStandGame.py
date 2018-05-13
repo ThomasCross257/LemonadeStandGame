@@ -229,8 +229,8 @@ def purchasingcustomers():
   ingredientloss()
   
 def sellingnothing():
-  while 7 != 19:
-      global hour
+  global hour
+  while hour != 19:
       time.sleep(0)
       hour = hour + 1
       if hour == 13:
