@@ -963,5 +963,6 @@ def begininput():
 	    purchasemenu()
 	else:
 		print("Error, Invalid input. Recalculating...")
+		begininput()
 
 begininput()
