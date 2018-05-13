@@ -488,7 +488,7 @@ def recipiesetup():
   d. Cup price
   To Start the game: press ENTER
   """).lower()
-	if f == "lemons" or "a":
+	if f == "lemons" or f == "a":
 		lemonsperpitcher = int(
 		    input("Please input how many lemons you'd like in your mix"))
 		if lemonsperpitcher > lemons:
@@ -496,7 +496,7 @@ def recipiesetup():
 		  print("You cannot input more lemons that you have.")
 		else:
 		  recipiesetup()
-	elif f == "sugar" or "b":
+	elif f == "sugar" or f == "b":
 		sugarperpitcher = int(
 		    input("Please input how much sugar you'd like in your mix"))
 		if sugarperpitcher > sugar:
@@ -505,14 +505,14 @@ def recipiesetup():
 		  recipiesetup()
 		else:
 		    recipiesetup()
-	elif f == "ice" or "c":
+	elif f == "ice" or f == "c":
 	 icepercup = int(input("Please input how much ice you'd like in your mix"))
 	 if icepercup > ice:
 	   icepercup = 0
 	   print("You cannot put more ice in than you already have.")
 	   recipiesetup()
 	 recipiesetup()
-	elif f == "cup price" or "d":
+	elif f == "cup price" or f == "d":
 		pricepercup = float(input("Please input the price you would like for your cups."))
 		if pricepercup > 2.00 or pricepercup < 0.05:
 		  pricepercup = 0
