@@ -337,11 +337,11 @@ def endofdayreports():
   lemons = lemons - absingred2
   sugar = sugar - absingred1
   ice = 0
-  if soldcups >= noterietylvl_1 or soldcups >= noterietylvl_2 or soldcups >= noterietylvl_3 or soldcups >= noterietylvl_4:
+  scorecups = scorecups + soldcups
+  if scorecups >= noterietylvl_1 or soldcups >= noterietylvl_2 or soldcups >= noterietylvl_3 or soldcups >= noterietylvl_4:
     print("You are becoming more popular!")
     popularity = popularity + 1
     print("Your popularity is now: " ,popularity)
-  scorecups = scorecups + soldcups
   print("You sold: " ,abs(soldcups), " Cups")
   print("You lost: " ,abs(lemonsloss), " units of lemons.")
   print("You lost: " ,abs(sugarloss), " units of sugar.")
@@ -405,7 +405,7 @@ def endgame():
     #restarts the whole program from scratch and clears all variables.
     begininput()
   elif g == "N":
-    print("Goodbye! I hope you enjoyed the game.")
+    print("Goodbye! We hope you enjoyed the game.")
     time.sleep(3)
     sys.exit()
 
@@ -450,7 +450,7 @@ def gamestartpage():
   elif days > gameLength:
     pass
   print("This is day ",days, " of " ,gameLength)
-  print("You currently have: " ,money)
+  print("You currently have: $" ,money)
   weatherpicker()
   print("The weather will be: " ,weather, " and: ",weatherconditions)
   weatherlikelyhood()
@@ -493,6 +493,14 @@ def bankruptpage():
 	print("Your total income was: " ,totalincome)
 	print("In total you bought this much ice, sugar, cups and lemons combined:" ,totalexpanses)
 	print("All of your assets have been liquidated, which amounts to: " ,liquidatedinventory)
+	g = input("Would you like to play again? (Y/N)")
+	if g == "Y":
+	  os.execl(sys.executable, sys.executable, *sys.argv)
+	  begininput()
+	elif g == "N":
+	  print("Goodbye! We hope you enjoyed the game")
+	  time.sleep(3)
+	  sys.exit()
 
 
 def recipiesetup():
