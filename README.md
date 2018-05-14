@@ -1,4 +1,4 @@
-# LemonadeStandGame
+# Lemonade Stand Game
 
 Welcome to our Lemonade Stand Game! This was a project made for our CIS Programming 1 class with the intent of making a fully functioning Lemonade Stand game. 
 This game features the following:
