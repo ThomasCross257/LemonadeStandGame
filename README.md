@@ -18,3 +18,9 @@ Some might come with periods afterwards, those should not be added.
 
 Integer commands: These commands usually come without any indication of limited commands. 
 This will usually appear whenever you are trying to: Set your recipe or setting the timescale the simulation runs at.
+
+Selecting the timescale:
+When you are prompted with the question: How fast would you like the simulation to run you will be given the option to input any integer you'd like. 
+
+The lower the integer, the faster the simulation will run. This is due to the command time.sleep() operating off of a variable that gets the input from the player.
+
