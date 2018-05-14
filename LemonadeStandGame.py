@@ -29,7 +29,7 @@ sugarlosses = 0
 judgement = "NaN"
 score = 0
 scorecups = 0
-judgementoptions = ["Abysmal" "Bad" "Satisfactory" "Good" "Excellent"]
+judgementoptions = ["Abysmal", "Bad", "Satisfactory", "Good" ,"Excellent". "Outstanding"]
 customerSatisfaction = 0
 popularity = 0
 totalprofits = 0
@@ -371,9 +371,31 @@ def masterkey():
 
 
 #inventory initialization
+def endgamereports():
+  global scorecups
+  global money
+  global judgement
+  global judgementoptions
+  
+  print("Over the course of " ,gameLength, " days, You sold: " ,scorecups)
+  print("You wound up with $" ,money)
+  if scorecups in range(0,20):
+    judgement = judgementoptions[0]
+  elif scorecups in range(21,40):
+    judgement = judgementoptions[1]
+  elif scorecups in range(41,60):
+    judgement = judgementoptions[2]
+  elif scorecups in range(61,80):
+    judgement = judgementoptions[3]
+  elif scorecups in range(81, 100):
+    judgement = judgementoptions[4]
+  elif scorecups > 100:
+    judgement = judgementoptions[5]
+  print("Overall, we'd say you did:" ,judgement)
 
 def endgame():
   print("Game Over!")
+  endgamereports()
   g = input("Would you like to play again? (Y/N)")
   if g == "Y":
     os.execl(sys.executable, sys.executable, *sys.argv) 
