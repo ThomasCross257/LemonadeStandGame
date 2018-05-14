@@ -29,7 +29,7 @@ sugarlosses = 0
 judgement = "NaN"
 score = 0
 scorecups = 0
-judgementoptions = ["Abysmal", "Bad", "Satisfactory", "Good" ,"Excellent". "Outstanding"]
+judgementoptions = ["Abysmal", "Bad", "Satisfactory", "Good" ,"Excellent", "Outstanding"]
 customerSatisfaction = 0
 popularity = 0
 totalprofits = 0
@@ -84,7 +84,7 @@ liquidatedinventory = lemons + ice + cups + sugar
 #defining the recipie items
 sugar_probability = 0
 ice_probability = 0
-lemon_probability = 0
+lemons_probability = 0
 
 #External frange function imported to use floats within a given range.
 #This was mostly done because of range's inability to use floats, especially when determining the amount of customers the players would get from day to day.
@@ -151,7 +151,7 @@ def calculatingcustomers():
   global lemons_probability
   global weatherlikelyhoodv
   
-  recipie_probability = sugar_probability + ice_probability + lemon_probability
+  recipie_probability = sugar_probability + ice_probability + lemons_probability
   totalcustomerlikelyhood = customerlikelyhood + recipie_probability + weatherlikelyhoodv
   customers = 5 * totalcustomerlikelyhood
   if customers > 250:
@@ -266,7 +266,10 @@ def betweendays():
   elif g == "D" or g == "d":
     purchasemenu3()
   elif g == "E" or g == "e":
-    gamestartpage()
+    if ice > 0 and lemons > 0 and sugar > 0:
+      gamestartpage()
+    else:
+      print("You cannot play without all your ingredients at least having one value in it")
     
 
 def hourlogger():
