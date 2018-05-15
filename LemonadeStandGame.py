@@ -249,6 +249,11 @@ def sellingnothing():
         print("It is now: " ,hour, "AM")
 
 def betweendays():
+  global lemons
+  global sugar
+  if lemons < 0 or sugar < 0:
+    lemons = 0
+    sugar = 0
   print("What would you like to do before the next day?")
   g = input("""
   A. Change your recipie.
