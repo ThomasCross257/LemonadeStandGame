@@ -259,7 +259,7 @@ def betweendays():
   """)
   if g == "A" or g == "a":
     recipiesetup2()
-  elif g == "B" or g == "B":
+  elif g == "B" or g == "b":
     inventorypage()
   elif g == "C" or g == "c":
     funds()
