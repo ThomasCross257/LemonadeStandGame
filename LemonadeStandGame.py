@@ -646,7 +646,10 @@ def purchasecups50():
 	)
 	cups = cups + 50
 	max_cups = max_cups + cups
-	purchasemenu2()
+	if secondmenu == True:
+	  purchasemenu3()
+	else:
+	  purchasemenu2()
 
 def purchasecups100():
 	global money
@@ -661,7 +664,10 @@ def purchasecups100():
 	)
 	cups = cups + 100
 	max_cups = max_cups + cups
-	purchasemenu2()
+	if secondmenu == True:
+	  purchasemenu3()
+	else:
+	  purchasemenu2()
 
 def purchaselemon10():
 	global money
@@ -677,7 +683,10 @@ def purchaselemon10():
 	    "You have purchased 10 lemons. Your funds are now:",
 	    money,
 	)
-	purchasemenu2()
+	if secondmenu == True:
+	  purchasemenu3()
+	else:
+	  purchasemenu2()
 
 def purchaselemon30():
 	global money
@@ -692,7 +701,10 @@ def purchaselemon30():
 	    "You have purchased 30 lemons. Your funds are now:",
 	    money,
 	)
-	purchasemenu2()
+	if secondmenu == True:
+	  purchasemenu3()
+	else:
+	  purchasemenu2()
 
 def purchaselemon75():
 	global money
@@ -707,7 +719,10 @@ def purchaselemon75():
 	    "You have purchased 75 lemons. Your funds are now:",
 	    money,
 	)
-	purchasemenu2()
+	if secondmenu == True:
+	  purchasemenu3()
+	else:
+	  purchasemenu2()
 
 def purchasesugar8():
 	global money
@@ -722,7 +737,10 @@ def purchasesugar8():
 	    "You have purchased 8 units of Sugar. Your funds are now:",
 	    money,
 	)
-	purchasemenu2()
+	if secondmenu == True:
+	  purchasemenu3()
+	else:
+	  purchasemenu2()
 
 def purchasesugar20():
 	global money
@@ -737,7 +755,10 @@ def purchasesugar20():
 	    "You have purchased 20 units of Sugar. Your funds are now:",
 	    money,
 	)
-	purchasemenu2()
+	if secondmenu == True:
+	  purchasemenu3()
+	else:
+	  purchasemenu2()
 
 def purchasesugar48():
 	global money
@@ -752,7 +773,10 @@ def purchasesugar48():
 	    "You have purchased 48 units of Sugar. Your funds are now:",
 	    money,
 	)
-	purchasemenu2()
+	if secondmenu == True:
+	  purchasemenu3()
+	else:
+	  purchasemenu2()
 
 def purchaseice100():
 	global money
@@ -767,7 +791,10 @@ def purchaseice100():
 	    "You have purchased 100 units of Ice. Your funds are now:",
 	    money,
 	)
-	purchasemenu2()
+	if secondmenu == True:
+	  purchasemenu3()
+	else:
+	  purchasemenu2()
 
 def purchaseice250():
 	global money
@@ -781,7 +808,10 @@ def purchaseice250():
 	    "You have purchased 250 units of Ice. Your funds are now:",
 	    money,
 	)
-	purchasemenu2()
+	if secondmenu == True:
+	  purchasemenu3()
+	else:
+	  purchasemenu2()
 
 def purchaseice500():
 	global money
@@ -795,7 +825,10 @@ def purchaseice500():
 	    "You have purchased 500 units of Ice. Your funds are now:",
 	    money,
 	)
-	purchasemenu2()
+	if secondmenu == True:
+	  purchasemenu3()
+	else:
+	  purchasemenu2()
 
 def purchasemenu():
 	purchaseinput = (input(
@@ -978,8 +1011,8 @@ def begininput():
 	  if devpassword == "Holdout":
 	    global lemons
 	    global max_cups
-	    global secondmenu
 	    global ice
+	    global secondmenu
 	    global sugar
 	    global cups
 	    global max_lemons
