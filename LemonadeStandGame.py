@@ -113,7 +113,7 @@ def recipielikelyhood():
   if sugarperpitcher in range(4,7):
     sugar_probability = random.randint(3,8)
   if icepercup in range(2,4):
-    ice_probability = random.randint
+    ice_probability = random.randint(3,7)
   if lemonsperpitcher <= 2:
     lemons_probability = random.randint(0,1)
   elif sugarperpitcher <= 3:
