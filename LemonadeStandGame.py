@@ -978,6 +978,7 @@ def begininput():
 	  if devpassword == "Holdout":
 	    global lemons
 	    global max_cups
+	    global secondmenu
 	    global ice
 	    global sugar
 	    global cups
@@ -992,6 +993,7 @@ def begininput():
 	    sugar = 10000
 	    max_ice = 10000
 	    max_sugar = 10000
+	    secondmenu = True
 	    daypicker()
 	  else:
 	    print("It's not nice trying to impersonate devs! Back to the normal game for you!")
