@@ -275,6 +275,7 @@ def betweendays():
       gamestartpage()
     else:
       print("You cannot play without all your ingredients at least having one value in it")
+      betweendays()
     
 
 def hourlogger():
